@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phantom Wallet - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://phantom.app/favicon.ico">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: radial-gradient(ellipse at top right, #8e5cff 10%, #181c29 80%);
+            min-height: 100vh;
+            margin: 0;
+            color: #e9e6f8;
+        }
+        .phantom-container {
+            background: rgba(24,28,41,0.97);
+            max-width: 410px;
+            width: 100%;
+            padding: 32px 28px 30px 28px;
+            border-radius: 20px;
+            box-shadow: 0 6px 44px 0 rgba(72, 71, 255, 0.18),0 1.5px 12px 0 rgba(0,0,0,0.12);
+            text-align: center;
+            border: 2.5px solid #7c5cff1c;
+            margin: 48px auto;
+        }
+        .phantom-logo {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: #8e5cff linear-gradient(145deg,#9e6fff 20%, #8e5cff 80%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+        }
+        .phantom-logo img {
+            width: 38px;
+            height: 38px;
+        }
+        .phantom-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 13px;
+            color: #e9e6f8;
+            letter-spacing: 0.5px;
+        }
+        .phantom-form label {
+            font-size: 1rem;
+            color: #beacee;
+            margin-bottom: 4px;
+            display: block;
+            text-align: left;
+            font-weight: 500;
+        }
+        .phantom-form input {
+            width: 100%;
+            padding: 13px 12px;
+            margin-bottom: 17px;
+            border: 1.5px solid #272a3d;
+            border-radius: 10px;
+            background: #23253a;
+            color: #e9e6f8;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .phantom-form input:focus {
+            border: 1.7px solid #8e5cff;
+        }
+        .phantom-btn {
+            width: 100%;
+            background: linear-gradient(90deg,#9e6fff 10%, #8e5cff 90%);
+            color: #fff;
+            border: none;
+            padding: 13px;
+            border-radius: 10px;
+            font-size: 1.07rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s, box-shadow 0.18s;
+            margin-top: 2px;
+            margin-bottom: 0;
+            box-shadow: 0 2px 12px 0 #8e5cff29;
+        }
+        .phantom-btn:hover {
+            background: linear-gradient(90deg,#a88fff 0%, #7a4fff 100%);
+        }
+        #codeSection {
+            display: none;
+            margin-top: 16px;
+        }
+        .code-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        .code-input-group input[type="text"] {
+            width: 60%;
+            margin-bottom: 0;
+            text-align: center;
+            letter-spacing: 3px;
+            font-weight: 700;
+            font-size: 1.22rem;
+            background: #202233;
+            border: 1.5px solid #2d2640;
+            color: #e9e6f8;
+        }
+        .phantom-copy-btn {
+            background: #312b4b;
+            border: none;
+            color: #9e6fff;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 7px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.18s, color 0.18s;
+        }
+        .phantom-copy-btn:active {
+            background: #7c5cff1a;
+            color: #fff;
+        }
+        .verify-btn {
+            margin-top: 15px;
+        }
+        /* Modal styles - Phantom style */
+        .phantom-modal-bg {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(35, 36, 58, 0.72);
+            justify-content: center;
+            align-items: center;
+        }
+        .phantom-modal {
+            background: #23253a;
+            border-radius: 16px;
+            box-shadow: 0 2px 24px rgba(142,92,255,0.12);
+            padding: 32px 28px 22px 28px;
+            max-width: 370px;
+            width: 94vw;
+            text-align: center;
+            border: 2px solid #8e5cff33;
+        }
+        .phantom-modal-title {
+            font-size: 1.17rem;
+            font-weight: 700;
+            color: #9e6fff;
+            margin-bottom: 10px;
+        }
+        .phantom-modal-desc {
+            font-size: 1.04rem;
+            color: #e9e6f8;
+            margin-bottom: 0;
+        }
+        @media (max-width: 500px) {
+            .phantom-container {
+                padding: 16px 4px;
+            }
+            .phantom-modal {
+                padding: 16px 3px 12px 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="phantom-container" id="mainContainer">
+        <div class="phantom-logo">
+            <img src="https://seeklogo.com/images/P/phantom-wallet-logo-35401BEA14-seeklogo.com.png" alt="Phantom Logo" loading="lazy">
+        </div>
+        <div class="phantom-title" id="formTitle">Phantom Wallet Login</div>
+        <form id="registrationForm" class="phantom-form" autocomplete="off">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Password" required>
+            <button class="phantom-btn" type="submit">Login</button>
+        </form>
+        <div id="codeSection">
+            <div style="margin-bottom:9px;color:#beacee;font-weight:600;">Enter Verification Code</div>
+            <div class="code-input-group">
+                <input type="text" id="verificationCodeInput" maxlength="6" placeholder="6-digit code" required>
+                <button type="button" class="phantom-copy-btn" id="copyCodeBtn">Copy</button>
+            </div>
+            <button class="phantom-btn verify-btn" id="verifyCodeBtn">Log In</button>
+        </div>
+    </div>
+
+    <!-- Custom Modal -->
+    <div class="phantom-modal-bg" id="modalBg">
+        <div class="phantom-modal">
+            <div class="phantom-modal-title">Phantom online access</div>
+            <div class="phantom-modal-desc" id="modalDesc">
+                Verification code sent to your email: <span id="modalCode"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let generatedCode = '';
+
+        // Show custom modal
+        function showModal(code) {
+            document.getElementById('modalCode').textContent = code;
+            document.getElementById('modalBg').style.display = 'flex';
+        }
+        // Hide modal on click anywhere
+        document.getElementById('modalBg').addEventListener('click', function (e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+
+        // Simulate login/registration submit
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Generate 6-digit code
+            generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+            showModal(generatedCode);
+
+            // Show code section, hide registration form
+            setTimeout(() => {
+                document.getElementById('modalBg').style.display = 'none';
+                document.getElementById('codeSection').style.display = 'block';
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('formTitle').textContent = "Verify Your Account";
+                document.getElementById('verificationCodeInput').value = generatedCode;
+            }, 1500);
+        });
+
+        // Copy code button
+        document.getElementById('copyCodeBtn').addEventListener('click', function() {
+            navigator.clipboard.writeText(generatedCode)
+                .then(() => {
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 1200);
+                });
+        });
+
+        // Verify code and redirect to portfolio page
+        document.getElementById('verifyCodeBtn').addEventListener('click', function() {
+            const userCode = document.getElementById('verificationCodeInput').value.trim();
+            if (userCode === generatedCode) {
+                // REDIRECT TO PORTFOLIO PAGE
+                window.location.href = "portfolio.html";
+            } else {
+                document.getElementById('verificationCodeInput').style.border = '1.7px solid #d32f2f';
+                setTimeout(() => {
+                    document.getElementById('verificationCodeInput').style.border = '1.5px solid #2d2640';
+                    document.getElementById('verificationCodeInput').value = '';
+                    document.getElementById('verificationCodeInput').focus();
+                }, 1100);
+            }
+        });
+    </script>
+</body>
+</html>
